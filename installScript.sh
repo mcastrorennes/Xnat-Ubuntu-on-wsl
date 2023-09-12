@@ -71,7 +71,7 @@ sleep 5
 mkdir -p /data/xnat/archive
 mkdir -p /data/xnat/build
 cd /
-sudo git clone https://github.com/XxScottxX/Xnat-Ubuntu.git
+sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
 cd Xnat-Ubuntu
 sudo docker-compose up -d
 chmod +x RESTApiTest/APItest.sh
