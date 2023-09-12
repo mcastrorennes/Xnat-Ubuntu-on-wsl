@@ -1,5 +1,5 @@
-FROM tomcat:7-jre8-alpine
-MAINTAINER Adrian Pfleiderer <adrian.pfleiderer@student.uni-augsburg.de>
+FROM tomcat:9-jre8-alpine
+MAINTAINER Miguel Castro <miguel.castro@inserm.fr>
 
 ARG XNAT_VER
 ARG XNAT_ROOT=/data/xnat
@@ -42,10 +42,10 @@ RUN	apk add --no-cache postgresql-client && \
 	mkdir -p ${XNAT_ROOT}/pipeline/temp && \ 
 	mkdir -p ${XNAT_ROOT}/prearchive && \
 	cd ${XNAT_HOME}/plugins && \
-	wget https://bitbucket.org/icrimaginginformatics/ohif-viewer-xnat-plugin/downloads/ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	unzip -o ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	rm ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	wget "https://github.com/NrgXnat/container-service/releases/download/2.0.1/containers-2.0.1-fat.jar" && \
+	wget https://bitbucket.org/icrimaginginformatics/ohif-viewer-xnat-plugin/downloads/ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && 
+	unzip -o ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && \
+	rm ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && \
+	wget "https://github.com/NrgXnat/container-service/releases/download/2.1.0/containers-2.1.0-fat.jar" && \
 	wget https://bitbucket.org/xnatx/ldap-auth-plugin/downloads/xnat-ldap-auth-plugin-1.0.0.jar && \
 	cd ${XNAT_ROOT}/pipeline && \
 	git clone https://www.github.com/nrgXnat/xnat-pipeline-engine.git && \
