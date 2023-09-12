@@ -72,7 +72,7 @@ mkdir -p /data/xnat/archive
 mkdir -p /data/xnat/build
 cd /
 sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
-cd Xnat-Ubuntu
+cd Xnat-Ubuntu-on-wsl
 sudo docker-compose up -d
 chmod +x RESTApiTest/APItest.sh
 chmod +x RESTApiTest/APItest_multifiles.sh
