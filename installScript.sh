@@ -7,7 +7,7 @@ echo ---------------------------------------
 echo
 echo This script installs:
 echo
-echo '-----> XNAT v.1.7'
+echo '-----> XNAT v.1.7.6'
 echo '-----> Tomcat Websever'
 echo '-----> Plugins & Pipelines'
 echo '-----> Testdata and Skripts'
