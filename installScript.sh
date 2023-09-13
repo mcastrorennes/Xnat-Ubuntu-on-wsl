@@ -47,7 +47,7 @@ echo
 echo Install Java
 echo ---------------------------------------
 sleep 5
-sudo apt install openjdk-11-jdk
+sudo apt install openjdk-9-jdk
 apt-get install nano
 echo
 echo Install Docker
