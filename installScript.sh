@@ -82,8 +82,8 @@ cd /
 sudo git clone -branch v1.8.9.1 https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
 cd Xnat-Ubuntu-on-wsl
 sudo docker-compose up -d
-chmod +x RESTApiTest/APItest.sh
-chmod +x RESTApiTest/APItest_multifiles.sh
+#chmod +x RESTApiTest/APItest.sh
+#chmod +x RESTApiTest/APItest_multifiles.sh
 
 #workaround if processing url is not found
 #apt-get install iptables
