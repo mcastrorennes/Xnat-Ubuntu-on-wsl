@@ -42,7 +42,7 @@ RUN	apk add --no-cache postgresql-client && \
 	mkdir -p ${XNAT_ROOT}/pipeline/temp && \ 
 	mkdir -p ${XNAT_ROOT}/prearchive && \
 	cd ${XNAT_HOME}/plugins && \
-	wget https://bitbucket.org/icrimaginginformatics/ohif-viewer-xnat-plugin/downloads/ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && 
+	wget https://bitbucket.org/icrimaginginformatics/ohif-viewer-xnat-plugin/downloads/ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && \
 	unzip -o ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && \
 	rm ohif-viewer-plugin-2.1.0-bundle-XNAT-1.7.6.zip && \
 	wget https://github.com/NrgXnat/container-service/releases/download/2.1.0/containers-2.1.0-fat.jar && \
