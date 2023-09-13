@@ -32,6 +32,14 @@ select yn in 'Yes' 'No'; do
     esac
 done
 echo
+echo Setting network connections hang under WSL
+echo ---------------------------------------
+sudo rm /etc/resolv.conf
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo bash -c 'echo "[network]" > /etc/wsl.conf'
+sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
+sudo chattr +i /etc/resolv.conf
+echo
 echo install System!
 echo ---------------------------------------
 cd /
