@@ -55,8 +55,8 @@ echo
 echo Install Java
 echo ---------------------------------------
 sleep 5
-sudo apt install openjdk-8-jdk
-apt-get install nano
+#sudo apt install openjdk-8-jdk
+#apt-get install nano
 echo
 echo Install Docker
 echo ---------------------------------------
@@ -71,7 +71,7 @@ echo
 echo Install GIT
 echo ---------------------------------------
 sleep 5
-sudo apt install git
+#sudo apt install git
 echo
 echo Install XNAT
 echo ---------------------------------------
@@ -79,7 +79,7 @@ sleep 5
 mkdir -p /data/xnat/archive
 mkdir -p /data/xnat/build
 cd /
-sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
+sudo git clone -branch v1.8.9.1 https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
 cd Xnat-Ubuntu-on-wsl
 sudo docker-compose up -d
 chmod +x RESTApiTest/APItest.sh
