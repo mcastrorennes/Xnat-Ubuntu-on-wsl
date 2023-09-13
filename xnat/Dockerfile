@@ -1,68 +1,50 @@
+FROM tomcat:9-jdk8-openjdk-buster
+MAINTAINER Matt Kelsey <kelseym@wustl.edu>
 
-FROM tomcat:7-jre8-alpine
-MAINTAINER Miguel Castro <miguel.castro@inserm.fr>
+ARG XNAT_VERSION=${XNAT_VERSION}
+ARG XNAT_ROOT=${XNAT_ROOT}
+ARG XNAT_HOME=${XNAT_HOME}
+ARG XNAT_DATASOURCE_DRIVER=${XNAT_DATASOURCE_DRIVER}
+ARG XNAT_DATASOURCE_URL=${XNAT_DATASOURCE_URL}
+ARG XNAT_DATASOURCE_USERNAME=${XNAT_DATASOURCE_USERNAME}
+ARG XNAT_DATASOURCE_PASSWORD=${XNAT_DATASOURCE_PASSWORD}
+ARG XNAT_EMAIL=${XNAT_EMAIL}
+ARG XNAT_PROCESSING_URL=http://xnat-web:8080
+ARG XNAT_SMTP_ENABLED=${XNAT_SMTP_ENABLED}
+ARG XNAT_SMTP_HOSTNAME=${XNAT_SMTP_HOSTNAME}
+ARG XNAT_SMTP_PORT=${XNAT_SMTP_PORT}
+ARG XNAT_SMTP_AUTH=${XNAT_SMTP_AUTH}
+ARG XNAT_SMTP_USERNAME=${XNAT_SMTP_USERNAME}
+ARG XNAT_SMTP_PASSWORD=${XNAT_SMTP_PASSWORD}
 
-ARG XNAT_VER
-ARG XNAT_ROOT=/data/xnat
-ARG XNAT_HOME=/data/xnat/home
-ARG XNAT_DATASOURCE_DRIVER=org.postgresql.Driver
-ARG XNAT_DATASOURCE_URL=jdbc:postgresql://xnat-db/xnat
-ARG XNAT_DATASOURCE_USERNAME=xnat
-ARG XNAT_DATASOURCE_PASSWORD=xnat
-ARG XNAT_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQL9Dialect
-ARG TOMCAT_XNAT_FOLDER=ROOT
-ARG SMTP_ENABLED=false
-ARG SMTP_HOSTNAME=fake.fake
-ARG SMTP_PORT
-ARG SMTP_AUTH
-ARG SMTP_USERNAME
-ARG SMTP_PASSWORD
+ARG TOMCAT_XNAT_FOLDER=${TOMCAT_XNAT_FOLDER}
+ARG TOMCAT_XNAT_FOLDER_PATH=${CATALINA_HOME}/webapps/${TOMCAT_XNAT_FOLDER}
 
 ADD make-xnat-config.sh /usr/local/bin/make-xnat-config.sh
 ADD wait-for-postgres.sh /usr/local/bin/wait-for-postgres.sh
 
-RUN	apk add --no-cache postgresql-client && \
-	apk add --no-cache postgresql-client && \
-	apk add --no-cache bash git openssh && \
-	apk add --no-cache wget && \
-	apk add --no-cache unzip && \
-	apk add --no-cache gradle && \
-	apk add --no-cache nano && \
-	apk add --no-cache util-linux && \
-	rm -rf $CATALINA_HOME/webapps/* && \
-	mkdir -p $CATALINA_HOME/webapps/${TOMCAT_XNAT_FOLDER} && \
-	mkdir -p ${XNAT_HOME}/config/auth && \
-	mkdir -p ${XNAT_HOME}/logs && \
-	mkdir -p ${XNAT_HOME}/plugins && \
-	mkdir -p ${XNAT_HOME}/work && \
-	mkdir -p ${XNAT_ROOT}/archive && \
-	mkdir -p ${XNAT_ROOT}/build && \
-	mkdir -p ${XNAT_ROOT}/cache && \
-	mkdir -p ${XNAT_ROOT}/ftp && \
-	mkdir -p ${XNAT_ROOT}/sharedData && \
-	mkdir -p ${XNAT_ROOT}/pipeline/temp && \ 
-	mkdir -p ${XNAT_ROOT}/prearchive && \
-	cd ${XNAT_HOME}/plugins && \
-	wget https://bitbucket.org/icrimaginginformatics/ohif-viewer-xnat-plugin/downloads/ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	unzip -o ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	rm ohif-viewer-plugin-2.0.0-bundle-XNAT-1.7.4.1.zip && \
-	wget https://github.com/NrgXnat/container-service/releases/download/2.0.1/containers-2.0.1-fat.jar && \
-	wget https://bitbucket.org/xnatx/ldap-auth-plugin/downloads/xnat-ldap-auth-plugin-1.0.0.jar && \
-	cd ${XNAT_ROOT}/pipeline && \
-	git clone https://www.github.com/nrgXnat/xnat-pipeline-engine.git && \
-	chmod +x /usr/local/bin/make-xnat-config.sh && \
-	/usr/local/bin/make-xnat-config.sh && \
-	rm /usr/local/bin/make-xnat-config.sh && \
-	cd ${XNAT_ROOT}/pipeline/xnat-pipeline-engine && \
-	./gradlew && \
-	cd $CATALINA_HOME/webapps/ && \
-	wget https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-${XNAT_VER}.war && \
-	cd ${TOMCAT_XNAT_FOLDER} && \
-	unzip -o ../xnat-web-${XNAT_VER}.war &&\
-	rm -f ../xnat-web-${XNAT_VER}.war
+RUN apt-get update && apt-get install -y postgresql-client wget 
+RUN rm -rf ${CATALINA_HOME}/webapps/*
+RUN mkdir -p \
+        ${TOMCAT_XNAT_FOLDER_PATH} \
+        ${XNAT_HOME}/config \
+        ${XNAT_HOME}/logs \
+        ${XNAT_HOME}/plugins \
+        ${XNAT_HOME}/work \
+        ${XNAT_ROOT}/archive \
+        ${XNAT_ROOT}/build \
+        ${XNAT_ROOT}/cache \
+        ${XNAT_ROOT}/ftp \
+        ${XNAT_ROOT}/pipeline \
+        ${XNAT_ROOT}/prearchive
+RUN /usr/local/bin/make-xnat-config.sh
+RUN rm /usr/local/bin/make-xnat-config.sh
+RUN wget --no-verbose --output-document=/tmp/xnat-web-${XNAT_VERSION}.war https://api.bitbucket.org/2.0/repositories/xnatdev/xnat-web/downloads/xnat-web-${XNAT_VERSION}.war
+RUN unzip -o -d ${TOMCAT_XNAT_FOLDER_PATH} /tmp/xnat-web-${XNAT_VERSION}.war
+RUN rm -f /tmp/xnat-web-${XNAT_VERSION}.war
 
-ADD PipelineTest ${XNAT_ROOT}/pipeline/catalog/PipelineTest
 EXPOSE 8080
-ENV XNAT_HOME=${XNAT_HOME} XNAT_DATASOURCE_USERNAME=${XNAT_DATASOURCE_USERNAME} XNAT_ROOT=${XNAT_ROOT}
-RUN chmod +x /usr/local/bin/wait-for-postgres.sh
+
+ENV XNAT_HOME=${XNAT_HOME} XNAT_DATASOURCE_USERNAME=${XNAT_DATASOURCE_USERNAME} PGPASSWORD=${XNAT_DATASOURCE_PASSWORD}
+
 CMD ["wait-for-postgres.sh", "/usr/local/tomcat/bin/catalina.sh", "run"]
