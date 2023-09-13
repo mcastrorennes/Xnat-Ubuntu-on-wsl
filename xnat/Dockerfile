@@ -1,4 +1,4 @@
-FROM tomcat:9.0.80-jre11-temurin-jammy
+FROM tomcat:7-jre8-alpine
 MAINTAINER Miguel Castro <miguel.castro@inserm.fr>
 
 ARG XNAT_VER
