@@ -2,12 +2,12 @@ reset
 echo
 echo
 echo ---------------------------------------
-echo Welcome to the installation from XNAT
+echo Installation of XNAT for WSL Ubuntu 22.04 
 echo ---------------------------------------
 echo
 echo This script installs:
 echo
-echo '-----> XNAT v.1.7'
+echo '-----> NAT version to 1.8.9.1'
 echo '-----> Tomcat Websever'
 echo '-----> Plugins & Pipelines'
 echo '-----> Testdata and Skripts'
@@ -16,11 +16,9 @@ echo '-----> XNAT Container Service'
 echo '-----> nrgix Proxy'
 echo '-----> Xnat-Ubuntu'
 echo '-----> Docker'
-echo '-----> GIT'
-echo '-----> JAVA'
 echo
 echo Please check:
-echo 1. you run this script on Ubuntu v.18 '(minimal)' or bigger
+echo 1. you run this script on WSL Ubuntu 22.04 
 echo 2. you have internet
 echo 3. you have sudo privileges
 echo
@@ -32,7 +30,8 @@ select yn in 'Yes' 'No'; do
     esac
 done
 echo
-echo Setting network connections hang under WSL
+echo Setting network connections under WSL
+# avoid somes problems with wget
 echo ---------------------------------------
 sudo rm /etc/resolv.conf
 sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
@@ -47,44 +46,38 @@ sleep 2
 echo
 echo Update System
 echo ---------------------------------------
-sleep 5
+sleep 2
 apt-get install sudo
 sudo apt-get update
 sudo apt-get upgrade
 echo
-echo Install Java
+echo install basic dependencies
 echo ---------------------------------------
-sleep 5
-#sudo apt install openjdk-8-jdk
-#apt-get install nano
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 echo
 echo Install Docker
+# vurl -fsSL https://get.docker.com | sh
 echo ---------------------------------------
-sleep 5
+sleep 2
 sudo apt install docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo apt-get install curl
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-echo
-echo Install GIT
-echo ---------------------------------------
-sleep 5
-#sudo apt install git
 echo
 echo Install XNAT
 echo ---------------------------------------
-sleep 5
+sleep 2
 mkdir -p /data/xnat/archive
 mkdir -p /data/xnat/build
 cd /
-sudo git clone --branch v1.8.9.1 https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
+sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
 cd Xnat-Ubuntu-on-wsl
-sudo cp default.env .env
+cp default.env .env
 sudo docker-compose up -d
-#chmod +x RESTApiTest/APItest.sh
-#chmod +x RESTApiTest/APItest_multifiles.sh
+chmod +x RESTApiTest/APItest.sh
+chmod +x RESTApiTest/APItest_multifiles.sh
 
 #workaround if processing url is not found
 #apt-get install iptables
