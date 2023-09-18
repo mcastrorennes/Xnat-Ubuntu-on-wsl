@@ -22,17 +22,17 @@ services:
     ports:
       - 8104:8104
     volumes:
-      - ./xnat/plugins:${XNAT_HOME}/plugins
-      - ./xnat-data/home/logs:${XNAT_HOME}/logs
-      - ./xnat-data/archive:${XNAT_ROOT}/archive
-      - ./xnat-data/build:${XNAT_ROOT}/build
-      - ./xnat-data/cache:${XNAT_ROOT}/cache
+      - /data/xnat/plugins:${XNAT_HOME}/plugins
+      - /data/xnat/home/logs:${XNAT_HOME}/logs
+      - /data/xnat/archive:${XNAT_ROOT}/archive
+      - /data/xnat/build:${XNAT_ROOT}/build
+      - /data/xnat/cache:${XNAT_ROOT}/cache
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - xnat-db
     environment:
-      - CATALINA_OPTS=-Xms${XNAT_MIN_HEAP} -Xmx${XNAT_MAX_HEAP} -Dxnat.home=${XNAT_HOME}
-      - XNAT_HOME=${XNAT_HOME}
+      - CATALINA_OPTS=-Xms${XNAT_MIN_HEAP} -Xmx${XNAT_MAX_HEAP} -Dxnat.home=/data/xnat/home
+      - XNAT_HOME=/data/xnat/home
 
   xnat-db:
     image: postgres:${PG_VERSION}
