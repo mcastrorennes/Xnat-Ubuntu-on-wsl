@@ -29,6 +29,7 @@ This document contains the following sections:
 * [Pipeline Configurations](#markdown-Pipeline-Configurations)
 * [Add a Pipeline to your XNAT System](#markdown-Add-a-Pipeline-to-your-XNAT-System)
 * [Notes on using the Container Service](#markdown-header-notes-on-using-the-container-service)
+* []()
 
 
 ## System Overview
@@ -142,6 +143,9 @@ You can add a Sample Pipeline that is already installed with this installation.
 With this installation you can also add docker container as pipelines. Here a short example how it works with a external docker environment.
 
 <img src="Images/ContainerServiceXNAT.jpg" alt="HTML ERROR" width="500" height="300">
+
+## More informations
+For more inforations about environments variables, troubleshooting, etc, go to dockerized XNAT version from the [official dockerized XNAT Git-Repo](http://github.com/NrgXnat/xnat-docker-compose)
 
 
 ## Special mention
