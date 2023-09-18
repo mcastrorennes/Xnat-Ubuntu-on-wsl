@@ -21,7 +21,7 @@ This document contains the following sections:
 * [Usage](#markdown-header-usage)
 * [Enable WSL](#markdown-Enable-WSL)
 * [Forward ports into WSL](#markdown-Forward-ports-into-WSL)
-* [Configuration to access the web server from the local network)(#markdown-Configuration-to-access-the-web-server-from-the-local-network)
+* [Configuration to access the web server from the local network](#markdown-Configuration-to-access-the-web-server-from-the-local-network)
 * [Necessary Configurations](#markdown-Necessary-Configurations)
 * [Environment variables](#markdown-header-environment-variables)
 * [Start the system](#markdown-start-the-system)
