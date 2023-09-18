@@ -71,6 +71,8 @@ echo ---------------------------------------
 sleep 2
 mkdir -p /data/xnat/archive
 mkdir -p /data/xnat/build
+mkdir -p /data/xnat/home
+mkdir -p /data/xnat/cache
 cd /
 sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
 cd Xnat-Ubuntu-on-wsl
