@@ -146,4 +146,4 @@ With this installation you can also add docker container as pipelines. Here a sh
 
 ## Special mention
 * Sourcefiles from offical XNAT Repo: [github.com/NrgXnat/xnat-docker-compose](http://github.com/NrgXnat/xnat-docker-compose)  [@johnflavin](http://github.com/johnflavin)
-* Fork for [Adrian Pfleiderer's projet Xnat-ubuntu](hhttps://github.com/Pfleiderer-Adrian/Xnat-Ubuntu)
+* Fork for [Adrian Pfleiderer's projet Xnat-ubuntu](https://github.com/Pfleiderer-Adrian/Xnat-Ubuntu).
