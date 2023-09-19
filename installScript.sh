@@ -69,14 +69,17 @@ echo
 echo Install XNAT
 echo ---------------------------------------
 sleep 2
-mkdir -p /data/xnat/archive
-mkdir -p /data/xnat/build
-mkdir -p /data/xnat/home
-mkdir -p /data/xnat/cache
+#mkdir -p /data/xnat/archive
+#mkdir -p /data/xnat/build
+#mkdir -p /data/xnat/home
+#mkdir -p /data/xnat/cache
+#mkdir -p /data/xnat/home/plugins
+#mkdir -p /data/xnat/home/logs
+
 cd /
 sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
+#cp default.env .env
 cd Xnat-Ubuntu-on-wsl
-cp default.env .env
 sudo docker-compose up -d
 chmod +x RESTApiTest/APItest.sh
 chmod +x RESTApiTest/APItest_multifiles.sh
