@@ -47,7 +47,7 @@ echo
 echo Update System
 echo ---------------------------------------
 sleep 2
-apt-get install sudo
+#apt-get install sudo
 sudo apt-get update
 sudo apt-get upgrade
 echo
