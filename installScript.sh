@@ -55,26 +55,26 @@ echo install basic dependencies
 echo ---------------------------------------
 sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 echo
-echo Install Docker
+# echo Install Docker
 # vurl -fsSL https://get.docker.com | sh
-echo ---------------------------------------
-sleep 2
-sudo apt install docker.io
+# echo ---------------------------------------
+# sleep 2
+# sudo apt install docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo apt-get install curl
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
 echo
 echo Install XNAT
 echo ---------------------------------------
 sleep 2
-#mkdir -p /data/xnat/archive
-#mkdir -p /data/xnat/build
-#mkdir -p /data/xnat/home
-#mkdir -p /data/xnat/cache
-#mkdir -p /data/xnat/home/plugins
-#mkdir -p /data/xnat/home/logs
+mkdir -p /data/xnat/archive
+mkdir -p /data/xnat/build
+mkdir -p /data/xnat/home
+mkdir -p /data/xnat/cache
+mkdir -p /data/xnat/home/plugins
+mkdir -p /data/xnat/home/logs
 
 cd /
 sudo git clone https://github.com/mcastrorennes/Xnat-Ubuntu-on-wsl.git
